@@ -11,7 +11,7 @@ import VModal from "vue-js-modal";
 import api from "./api";
 //import events from "./events";
 import VuePrismEditor from "vue-prism-editor";
-import "vue-prism-editor/dist/VuePrismEditor.css";
+// import "vue-prism-editor/dist/VuePrismEditor.css";
 import "prismjs";
 import "prismjs/components/prism-python";
 import { Snackbar } from "buefy";

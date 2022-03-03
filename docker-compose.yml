@@ -1,0 +1,9 @@
+services:
+  chronos-dev:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - CHRONOS_DEBUG=false
+    volumes:
+      - .:/app/chronos
