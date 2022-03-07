@@ -19,16 +19,16 @@ export default {
   props: {
     trigger: {
       type: Object,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
+      required: true,
     },
     script_uid: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     triggerName() {
@@ -48,17 +48,17 @@ export default {
       }
 
       return "";
-    }
+    },
   },
   methods: {
     deleteTrigger() {
       this.$store.commit("deleteTrigger", {
         uid: this.script_uid,
-        trigger_index: this.index
+        trigger_index: this.index,
       });
       api.saveScriptByUid(this.script_uid);
-    }
-  }
+    },
+  },
 };
 </script>
 

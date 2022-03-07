@@ -43,13 +43,13 @@ export default {
   components: {
     ScriptItem,
     NewScript,
-    ScriptViewer
+    ScriptViewer,
   },
   props: {
     script_uid: {
       required: false,
-      type: String
-    }
+      type: String,
+    },
   },
   computed: {
     scripts() {
@@ -64,7 +64,7 @@ export default {
       });
 
       return sortedScripts;
-    }
+    },
   },
   mounted() {
     events.$on("prompt-save", () => {
@@ -72,15 +72,15 @@ export default {
         indefinite: true,
         message: "You have unsaved changes",
         position: "is-top",
-        onAction: api.saveAllScripts
+        onAction: api.saveAllScripts,
       });
     });
   },
   methods: {
     openNewScript() {
       this.$refs.newScript.open();
-    }
-  }
+    },
+  },
 };
 </script>
 

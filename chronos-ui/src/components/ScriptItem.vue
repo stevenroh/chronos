@@ -4,7 +4,7 @@
       script: true,
       active: isActive,
       dark: this.index % 2 !== 0,
-      light: this.index % 2 === 0
+      light: this.index % 2 === 0,
     }"
     @click="selectScript"
   >
@@ -53,21 +53,21 @@ TimeAgo.addLocale(en);
 export default {
   name: "ScriptItem",
   components: {
-    Spinner
+    Spinner,
   },
   props: {
     script: {
       type: Object,
-      required: true
+      required: true,
     },
     index: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      lastRun: "never"
+      lastRun: "never",
     };
   },
   mounted() {
@@ -77,7 +77,7 @@ export default {
       this.recomputeLastRun();
     }, 30000);
 
-    events.$on("_script_executed", event => {
+    events.$on("_script_executed", (event) => {
       if (event.uid === this.script.uid) {
         this.recomputeLastRun();
       }
@@ -91,17 +91,14 @@ export default {
       return (
         decodeURIComponent(routeParts[routeParts.length - 1]) == this.script.uid
       );
-    }
+    },
   },
   methods: {
     toUnicode(str) {
       return str
         .split("")
-        .map(function(value) {
-          var temp = value
-            .charCodeAt(0)
-            .toString(16)
-            .toUpperCase();
+        .map(function (value) {
+          var temp = value.charCodeAt(0).toString(16).toUpperCase();
           if (temp.length > 2) {
             return "\\u" + temp;
           }
@@ -114,8 +111,8 @@ export default {
         .push({
           name: "Script",
           params: {
-            script_uid: this.script.uid
-          }
+            script_uid: this.script.uid,
+          },
         })
         .catch(() => {
           void 0;
@@ -130,8 +127,8 @@ export default {
 
         this.lastRun = timeAgo.format(datetime);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

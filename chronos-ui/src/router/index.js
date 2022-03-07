@@ -12,36 +12,36 @@ const routes = [
   },*/
   {
     path: "/",
-    redirect: "/scripts"
+    redirect: "/scripts",
   },
   {
     path: "/scripts",
     name: "Scripts",
     component: () => import("../views/Scripts.vue"),
-    props: true
+    props: true,
   },
   {
     path: "/scripts/:script_uid",
     name: "Script",
     component: () => import("../views/Scripts.vue"),
-    props: true
+    props: true,
   },
   {
     path: "/logs",
     name: "Logs",
-    component: () => import("../views/Logs.vue")
+    component: () => import("../views/Logs.vue"),
   },
   {
     path: "/settings",
     name: "Settings",
-    component: () => import("../views/Settings.vue")
-  }
+    component: () => import("../views/Settings.vue"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

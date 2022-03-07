@@ -9,7 +9,7 @@
         class="material-icons"
         v-if="
           !scriptEditorBar.saveButton.loading &&
-            !scriptEditorBar.saveButton.finished
+          !scriptEditorBar.saveButton.finished
         "
       >
         save
@@ -36,12 +36,11 @@
 
 <script>
 export default {
-  name: "BottomBar"
+  name: "BottomBar",
 };
 </script>
 
 <style lang="scss" scoped>
 .bottom-bar {
-  
 }
 </style>

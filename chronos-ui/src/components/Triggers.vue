@@ -64,11 +64,11 @@ export default {
   props: {
     script_uid: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    Trigger
+    Trigger,
   },
   data() {
     return {
@@ -76,7 +76,7 @@ export default {
         {
           type: "none",
           name: "Please select a trigger...",
-          field: []
+          field: [],
         },
         {
           type: "interval",
@@ -85,9 +85,9 @@ export default {
             {
               name: "Interval (in seconds)",
               key: "interval",
-              type: "number"
-            }
-          ]
+              type: "number",
+            },
+          ],
         },
         {
           type: "cron",
@@ -96,21 +96,21 @@ export default {
             {
               name: "CRON expression",
               key: "expression",
-              type: "text"
-            }
-          ]
+              type: "text",
+            },
+          ],
         },
         {
           type: "on_startup",
           name: "On startup trigger",
-          fields: []
-        }
+          fields: [],
+        },
       ],
       newTriggerContent: {
         type: "none",
         name: "",
-        options: {}
-      }
+        options: {},
+      },
     };
   },
   computed: {
@@ -123,14 +123,14 @@ export default {
       } else {
         return this.script.triggers;
       }
-    }
+    },
   },
   methods: {
     newTrigger() {
       this.$modal.show("new-trigger");
     },
     getTriggerById(id) {
-      return this.triggersTemplate.find(element => {
+      return this.triggersTemplate.find((element) => {
         return element.type === id;
       });
     },
@@ -148,17 +148,17 @@ export default {
         uid: this.script.uid,
         triggers: currentTriggers,
         synced: false,
-        internal: true
+        internal: true,
       });
       api.saveScriptByUid(this.script_uid);
       this.$modal.hide("new-trigger");
       this.newTriggerContent = {
         type: "none",
         name: "",
-        options: {}
+        options: {},
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

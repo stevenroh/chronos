@@ -24,35 +24,35 @@ import events from "@/events";
 export default {
   name: "QuickAction",
   components: {
-    Spinner
+    Spinner,
   },
   props: {
     icon: {
       type: String,
-      required: true
+      required: true,
     },
     text: {
       type: String,
-      required: true
+      required: true,
     },
     action: {
       type: String,
-      required: true
+      required: true,
     },
     script_uid: {
       type: String,
-      required: true
+      required: true,
     },
     showOutput: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     confirm: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     loading() {
@@ -62,7 +62,7 @@ export default {
       }
 
       return script.actions[this.action].loading;
-    }
+    },
   },
   methods: {
     activate() {
@@ -100,8 +100,8 @@ export default {
     },
     doAction() {
       api.scriptAction(this.script_uid, this.action);
-    }
-  }
+    },
+  },
 };
 </script>
 

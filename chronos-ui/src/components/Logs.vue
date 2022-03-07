@@ -12,13 +12,13 @@ import Log from "@/components/Log";
 export default {
   name: "Logs",
   components: {
-    Log
+    Log,
   },
   props: {
     logs: {
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 

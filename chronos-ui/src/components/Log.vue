@@ -36,9 +36,9 @@ export default {
   props: {
     log: {
       required: true,
-      type: Object
-    }
-  }
+      type: Object,
+    },
+  },
 };
 </script>
 

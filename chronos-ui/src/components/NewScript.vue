@@ -42,7 +42,7 @@ export default {
       scriptName: "",
       disabled: true,
       error: "",
-      canError: false
+      canError: false,
     };
   },
   methods: {
@@ -80,8 +80,8 @@ export default {
         this.canError = false;
         this.close();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

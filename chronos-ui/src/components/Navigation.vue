@@ -9,7 +9,7 @@
         v-for="route in routes"
         :key="route.name"
         :to="route.path"
-        v-slot="{ href, route, navigate }"
+        v-slot="{ href, navigate }"
       >
         <a :href="href" @click="navigate">
           <div :class="{ item: true, active: isActive(route.path) }">
@@ -28,12 +28,12 @@ export default {
     routes() {
       const routes = this.$router.options.routes;
 
-      return routes.filter(value => {
+      return routes.filter((value) => {
         if (value.path !== "/scripts/:script_uid" && value.path !== "/") {
           return value;
         }
       });
-    }
+    },
   },
   methods: {
     icon(routePath) {
@@ -41,7 +41,7 @@ export default {
         "/": "home",
         "/scripts": "code",
         "/settings": "settings",
-        "/logs": "subject"
+        "/logs": "subject",
       };
 
       return icons[routePath];
@@ -56,8 +56,8 @@ export default {
       if (currentPath.includes(path) && path !== "/") {
         return true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

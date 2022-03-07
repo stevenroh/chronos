@@ -20,20 +20,20 @@ export default {
   props: {
     action: {
       type: String,
-      required: true
+      required: true,
     },
     uid: {
       type: String,
-      required: true
+      required: true,
     },
     modalId: {
       type: String,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     output() {
@@ -53,7 +53,7 @@ export default {
       }
 
       return script.actions[this.action].done;
-    }
+    },
   },
   methods: {
     open() {
@@ -66,11 +66,11 @@ export default {
       if (this.done) {
         this.$store.commit("resetActionOutput", {
           scriptUid: this.uid,
-          action: this.action
+          action: this.action,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

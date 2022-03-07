@@ -26,11 +26,11 @@ const api = {
   guessScriptUid(name) {
     return slugify(name, {
       lower: true,
-      strict: true
+      strict: true,
     });
   },
   loadScripts() {
-    axios.get(this.getApiUrl() + "scripts").then(response => {
+    axios.get(this.getApiUrl() + "scripts").then((response) => {
       if (response.status === 200) {
         store.commit("setScripts", response.data);
       }
@@ -41,15 +41,15 @@ const api = {
 
     store.commit("addScriptLoading", {
       name: name,
-      uid: scriptUid
+      uid: scriptUid,
     });
 
-    let createScriptCallback = event => {
+    let createScriptCallback = (event) => {
       let payload = event;
       if (payload.uid === scriptUid) {
         store.commit("finishLoadingScript", {
           uid: event.uid,
-          script: payload
+          script: payload,
         });
         events.$off("_script_created", createScriptCallback);
         callback();
@@ -58,38 +58,38 @@ const api = {
     events.$on("_script_created", createScriptCallback);
 
     axios.post(this.getApiUrl() + "script/null", {
-      name: name
+      name: name,
     });
   },
   scriptAction(uid, action, callback = () => {}) {
     store.commit("resetActionOutput", {
       scriptUid: uid,
-      action: action
+      action: action,
     });
 
     store.commit("setActionLoadingState", {
       scriptUid: uid,
       action: action,
-      loading: true
+      loading: true,
     });
 
-    let taskOutputCallback = event => {
+    let taskOutputCallback = (event) => {
       if (event.script_uid === uid && event.task === action) {
         store.commit("appendActionOutput", {
           scriptUid: uid,
           action: action,
-          output: event.output + "\n"
+          output: event.output + "\n",
         });
 
         store.commit("setActionTaskId", {
           scriptUid: uid,
           action: action,
-          taskId: event.task_id
+          taskId: event.task_id,
         });
       }
     };
 
-    let taskCompleteCallback = event => {
+    let taskCompleteCallback = (event) => {
       let script = store.getters.getScriptByUid(uid);
 
       if (typeof script === "undefined") return;
@@ -98,7 +98,7 @@ const api = {
         store.commit("setActionDoneState", {
           scriptUid: uid,
           action: action,
-          done: true
+          done: true,
         });
 
         events.$off("_task_output", taskOutputCallback);
@@ -118,7 +118,7 @@ const api = {
       store.commit("updateScript", {
         uid: script.uid,
         synced: true,
-        internal: true
+        internal: true,
       });
       callback();
     });
@@ -128,7 +128,7 @@ const api = {
     this.saveScript(script, callback);
   },
   saveAllScripts() {
-    store.state.scripts.forEach(script => {
+    store.state.scripts.forEach((script) => {
       if (!script.synced) {
         api.saveScript(script);
       }
@@ -137,33 +137,33 @@ const api = {
     store.commit("resetSavePrompt");
   },
   listenToChronos() {
-    events.$on("_script_updated", event => {
+    events.$on("_script_updated", (event) => {
       store.commit("updateScript", event);
     });
 
-    events.$on("_script_deleted", event => {
+    events.$on("_script_deleted", (event) => {
       store.commit("deleteScript", event.uid);
     });
 
-    events.$on("_action_started", event => {
+    events.$on("_action_started", (event) => {
       store.commit("setActionLoadingState", {
         scriptUid: event.uid,
         action: event.action,
-        loading: true
+        loading: true,
       });
     });
 
-    events.$on("_action_complete", event => {
+    events.$on("_action_complete", (event) => {
       store.commit("setActionLoadingState", {
         scriptUid: event.uid,
         action: event.action,
-        loading: false
+        loading: false,
       });
     });
 
     // Start WebSocket connection
     const ws = new ReconnectingWebSocket(this.getWsUrl());
-    ws.onmessage = event => {
+    ws.onmessage = (event) => {
       let data = JSON.parse(event.data);
 
       events.$emit("_" + data.event, data.payload);
@@ -177,7 +177,7 @@ const api = {
       this.loadScripts();
       store.commit("setConnectionStatus", false);
     };
-  }
+  },
 };
 
 export default api;

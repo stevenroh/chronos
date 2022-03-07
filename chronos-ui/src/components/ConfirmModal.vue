@@ -1,9 +1,7 @@
 <template>
   <modal name="confirm" height="auto">
     <h2 class="modal-title">Are you sure?</h2>
-    <p>
-      When I'm done here, everything about your script will be gone.
-    </p>
+    <p>When I'm done here, everything about your script will be gone.</p>
 
     <div class="buttons">
       <a class="button grey just-text" @click="cancel">Cancel</a>
@@ -30,8 +28,8 @@ export default {
     cancel() {
       events.$emit("cancelled");
       this.$modal.hide("confirm");
-    }
-  }
+    },
+  },
 };
 </script>
 

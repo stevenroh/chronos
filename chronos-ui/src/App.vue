@@ -28,7 +28,7 @@ export default {
   components: {
     Navigation,
     ConfirmModal,
-    Spinner
+    Spinner,
   },
   mounted() {
     api.loadScripts();
@@ -36,8 +36,8 @@ export default {
   computed: {
     isConnected() {
       return this.$store.state.isConnected;
-    }
-  }
+    },
+  },
 };
 </script>
 
