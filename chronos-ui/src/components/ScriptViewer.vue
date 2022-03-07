@@ -96,9 +96,7 @@
 
           <div class="save-bar">
             <div class="execute" @click="installPipRequirements">
-              <i class="material-icons">
-                download
-              </i>
+              <i class="material-icons"> download </i>
 
               <span>Install Pip requirements</span>
             </div>
@@ -111,7 +109,7 @@
                 class="material-icons"
                 v-if="
                   !requirementsSaveButton.loading &&
-                    !requirementsSaveButton.finished
+                  !requirementsSaveButton.finished
                 "
               >
                 save
@@ -148,10 +146,10 @@
 
         <div class="code">
           <prism-editor
-            :code="python_script"
+            v-model="python_script"
             :lineNumbers="true"
-            language="py"
-            @change="updateCode"
+            :highlight="highlighter"
+            @input="updateCode"
           ></prism-editor>
 
           <div class="save-bar" :class="{ hidden: !showCodeEditorBar }">
@@ -178,7 +176,7 @@
                 class="material-icons"
                 v-if="
                   !scriptEditorBar.saveButton.loading &&
-                    !scriptEditorBar.saveButton.finished
+                  !scriptEditorBar.saveButton.finished
                 "
               >
                 save
@@ -227,42 +225,49 @@ import Logs from "@/components/Logs";
 import events from "@/events";
 import api from "@/api";
 
+import { PrismEditor } from "vue-prism-editor";
+import "vue-prism-editor/dist/prismeditor.min.css";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-python";
+import "prismjs/themes/prism-tomorrow.css";
+
 export default {
   name: "ScriptViewer",
   components: {
     QuickAction,
     ActionOutput,
     Triggers,
-    Logs
+    Logs,
+    PrismEditor,
   },
   props: {
     script_uid: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   data() {
     return {
       loading: false,
       scriptEditorBar: {
         executeButton: {
-          text: "Run"
+          text: "Run",
         },
         saveButton: {
           text: "Save",
           loading: false,
-          finished: false
-        }
+          finished: false,
+        },
       },
       requirementsSaveButton: {
         text: "Save",
         loading: false,
-        finished: false
-      }
+        finished: false,
+      },
     };
   },
   mounted() {
-    events.$on("_script_deleted", event => {
+    events.$on("_script_deleted", (event) => {
       if (event.uid === this.script_uid) {
         this.$router.push("/scripts");
       }
@@ -277,7 +282,7 @@ export default {
         return {};
       }
 
-      return this.scripts.find(value => {
+      return this.scripts.find((value) => {
         return value.uid === this.script_uid ? true : false;
       });
     },
@@ -290,7 +295,7 @@ export default {
     python_script: {
       get() {
         return this.script.contents;
-      }
+      },
     },
     pipRequirements: {
       get() {
@@ -301,10 +306,10 @@ export default {
           uid: this.script.uid,
           synced: false,
           internal: true,
-          requirements: value
+          requirements: value,
         });
-      }
-    }
+      },
+    },
   },
   methods: {
     updateCode(code) {
@@ -312,13 +317,14 @@ export default {
         uid: this.script.uid,
         synced: false,
         internal: true,
-        contents: code
+        contents: code,
       });
     },
     newTrigger() {
       this.$refs.triggers.newTrigger();
     },
     saveScriptButton() {
+      console.log(this.script)
       api.saveScript(this.script);
       this.scriptEditorBar.saveButton.text = "Saved";
       this.scriptEditorBar.saveButton.loading = false;
@@ -347,8 +353,11 @@ export default {
     },
     installPipRequirements() {
       this.$refs["install_requirements"].activate();
-    }
-  }
+    },
+    highlighter(code) {
+      return highlight(code, languages.python);
+    },
+  },
 };
 </script>
 
